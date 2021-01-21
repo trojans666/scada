@@ -1,0 +1,96 @@
+# depslib dependency file v1.0
+1611210638 source:e:\other\scada\main.cpp
+	<stdio.h>
+
+1611201650 source:e:\other\scada\xml\priv\xmlparse.c
+	"expat.h"
+	<stddef.h>
+	"xmltok.h"
+	"xmlrole.h"
+
+1611207885 e:\other\scada\xml\priv\expat.h
+	<stdlib.h>
+
+1611201812 e:\other\scada\xml\priv\xmltok.h
+
+1611199186 e:\other\scada\xml\priv\xmlrole.h
+	"xmltok.h"
+
+1611199332 source:e:\other\scada\xml\priv\xmlrole.c
+	"xmlrole.h"
+	"ascii.h"
+
+970242458 e:\other\scada\xml\priv\ascii.h
+
+1611207357 source:e:\other\scada\xml\priv\xmltok.c
+	"xmltok.h"
+	"nametab.h"
+	"xmltok_impl.h"
+	"ascii.h"
+	"asciitab.h"
+	"utf8tab.h"
+	"asciitab.h"
+	"utf8tab.h"
+	"iasciitab.h"
+	"utf8tab.h"
+	"iasciitab.h"
+	"utf8tab.h"
+	"asciitab.h"
+	"latin1tab.h"
+	"asciitab.h"
+	"latin1tab.h"
+	"asciitab.h"
+	"asciitab.h"
+	"asciitab.h"
+	"latin1tab.h"
+	"asciitab.h"
+	"latin1tab.h"
+	"iasciitab.h"
+	"latin1tab.h"
+	"iasciitab.h"
+	"latin1tab.h"
+	"asciitab.h"
+	"latin1tab.h"
+	"asciitab.h"
+	"latin1tab.h"
+	"iasciitab.h"
+	"latin1tab.h"
+	"iasciitab.h"
+	"latin1tab.h"
+
+970242458 e:\other\scada\xml\priv\nametab.h
+
+1611201177 e:\other\scada\xml\priv\xmltok_impl.h
+	<stddef.h>
+
+970242458 e:\other\scada\xml\priv\asciitab.h
+
+970242458 e:\other\scada\xml\priv\utf8tab.h
+
+970242458 e:\other\scada\xml\priv\iasciitab.h
+
+970242458 e:\other\scada\xml\priv\latin1tab.h
+
+1611210647 source:e:\other\scada\excep\excep.cpp
+	<stdio.h>
+	<stdarg.h>
+	<string.h>
+	<cxxabi.h>
+	<execinfo.h>
+	<dlfcn.h>
+	<string.h>
+	<errno.h>
+	"excep.h"
+
+1611210352 e:\other\scada\excep\excep.h
+	<string>
+
+1611211295 source:e:\other\scada\xml\xml.cpp
+	"excep.h"
+	"xml.h"
+
+1611209467 e:\other\scada\xml\xml.h
+	<string>
+	<vector>
+	"priv/expat.h"
+

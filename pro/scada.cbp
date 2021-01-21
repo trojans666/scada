@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="scada" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/scada" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/scada" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="../xml" />
+			<Add directory="../excep" />
+		</Compiler>
+		<Linker>
+			<Add library="pthread" />
+		</Linker>
+		<Unit filename="../core/autohd.h" />
+		<Unit filename="../core/resalloc.cpp" />
+		<Unit filename="../core/resalloc.h" />
+		<Unit filename="../core/stropt.cpp" />
+		<Unit filename="../core/stropt.h" />
+		<Unit filename="../excep/excep.cpp" />
+		<Unit filename="../excep/excep.h" />
+		<Unit filename="../main.cpp" />
+		<Unit filename="../xml/priv/ascii.h" />
+		<Unit filename="../xml/priv/asciitab.h" />
+		<Unit filename="../xml/priv/expat.h" />
+		<Unit filename="../xml/priv/iasciitab.h" />
+		<Unit filename="../xml/priv/latin1tab.h" />
+		<Unit filename="../xml/priv/nametab.h" />
+		<Unit filename="../xml/priv/utf8tab.h" />
+		<Unit filename="../xml/priv/xmlparse.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../xml/priv/xmlrole.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../xml/priv/xmlrole.h" />
+		<Unit filename="../xml/priv/xmltok.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../xml/priv/xmltok.h" />
+		<Unit filename="../xml/priv/xmltok_impl.h" />
+		<Unit filename="../xml/xml.cpp" />
+		<Unit filename="../xml/xml.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <!-- 站点名称-->
+    <station id="TestStation">
+        <prm id="StName">TestStName</prm>
+        <prm id="IconDir">./icons</prm>
+        <prm id="ModDir">./modules</prm>
+        <prm id="MessLev">0</prm>
+        <prm id="LogTarget">2</prm>
+
+        <node id="sub_BD">
+
+        </node>
+
+        <node id="sub_Transport">
+
+        </node>
+
+        <node id="sub_Protocol">
+
+        </node>
+
+        <node id="SCADA">
+            <!-- 监控的电池簇 1使能 0禁止 -->
+            <prm id="1">1</prm>
+            <prm id="2">1</prm>
+            <prm id="3">0</prm>
+        </node>
+    </station>
+</root>

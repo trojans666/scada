@@ -36,12 +36,30 @@
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
+			<Add library="dl" />
 		</Linker>
+		<Unit filename="../cfg/config.xml" />
 		<Unit filename="../core/autohd.h" />
+		<Unit filename="../core/ctrlnode.cpp" />
+		<Unit filename="../core/ctrlnode.h" />
+		<Unit filename="../core/log.cpp" />
+		<Unit filename="../core/log.h" />
+		<Unit filename="../core/modschedul.cpp" />
+		<Unit filename="../core/modschedul.h" />
+		<Unit filename="../core/module.cpp" />
+		<Unit filename="../core/module.h" />
 		<Unit filename="../core/resalloc.cpp" />
 		<Unit filename="../core/resalloc.h" />
 		<Unit filename="../core/stropt.cpp" />
 		<Unit filename="../core/stropt.h" />
+		<Unit filename="../core/subsys.cpp" />
+		<Unit filename="../core/subsys.h" />
+		<Unit filename="../core/sys.cpp" />
+		<Unit filename="../core/sys.h" />
+		<Unit filename="../event/event.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../event/event.h" />
 		<Unit filename="../excep/excep.cpp" />
 		<Unit filename="../excep/excep.h" />
 		<Unit filename="../main.cpp" />

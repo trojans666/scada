@@ -1,6 +1,6 @@
 
 #include "expat.h"
-
+#include <string.h>
 #include <stddef.h>
 
 #ifdef XML_UNICODE
@@ -2688,7 +2688,7 @@ doProlog(XML_Parser parser,
 	return XML_ERROR_NO_MEMORY;
       if (attlistDeclHandler && declAttributeType) {
 	if (*declAttributeType == '('
-	    || *declAttributeType == 'N' && declAttributeType[1] == 'O') {
+	    || (*declAttributeType == 'N' && declAttributeType[1] == 'O')) {
 	  /* Enumerated or Notation type */
 	  if (! poolAppendChar(&tempPool, ')')
 	      || ! poolAppendChar(&tempPool, '\0'))
@@ -2722,7 +2722,7 @@ doProlog(XML_Parser parser,
 	  return XML_ERROR_NO_MEMORY;
 	if (attlistDeclHandler && declAttributeType) {
 	  if (*declAttributeType == '('
-	      || *declAttributeType == 'N' && declAttributeType[1] == 'O') {
+	      || (*declAttributeType == 'N' && declAttributeType[1] == 'O')) {
 	    /* Enumerated or Notation type */
 	    if (! poolAppendChar(&tempPool, ')')
 		|| ! poolAppendChar(&tempPool, '\0'))
@@ -4521,7 +4521,7 @@ build_node (XML_Parser parser,
 static XML_Content *
 build_model (XML_Parser parser)
 {
-  int node;
+  //int node;
   XML_Content *ret;
   XML_Content *cpos;
   char * str;

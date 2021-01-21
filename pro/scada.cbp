@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 			<Add directory="../xml" />
 			<Add directory="../excep" />
+			<Add directory="../core" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />

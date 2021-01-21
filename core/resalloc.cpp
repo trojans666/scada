@@ -5,7 +5,7 @@
 
 #include <exception>
 
-#include "excpt.h"
+#include "excep.h"
 #include "resalloc.h"
 
 

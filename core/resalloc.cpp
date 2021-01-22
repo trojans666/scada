@@ -8,7 +8,7 @@
 #include "excep.h"
 #include "resalloc.h"
 
-
+using namespace SCADA;
 
 //********************************************
 //* RW Resources allocation object           *

@@ -11,6 +11,9 @@ using std::string;
 #define vmin(a,b)   ((a) < (b) ? (a) : (b))
 #define vmax(a,b)   ((a) > (b) ? (a) : (b))
 
+namespace SCADA
+{
+
 
 class StrOpt
 {
@@ -56,5 +59,6 @@ public:
 
 };
 
+}
 
 #endif // __STROPT_H

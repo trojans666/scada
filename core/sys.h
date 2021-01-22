@@ -9,22 +9,25 @@
 
 #include <string>
 #include <map>
+#include <vector>
 
+#include "xml.h"
 #include "excep.h"
 #include "resalloc.h"
 #include "ctrlnode.h"
 #include "autohd.h"
 #include "subsys.h"
 #include "modschedul.h"
-//#include "subdb.h"
+#include "subdb.h"
 //#include "subui.h"
 
 
-
+using std::vector;
 using std::string;
 using std::map;
 
-
+namespace SCADA
+{
 
 class SYS : public CtrlNode
 {
@@ -49,7 +52,10 @@ public:
     string user() {return mUser;}
     string host();
 
+    ResRW &UserRes() {return mDataRes;}
+
     bool cfgFileLoad(); /* 配置文件加载 */
+    void cfgFileCheck(bool first = false); /* 定时检查配置修改情况 */
 
     string icoDir() {return mIconDir;} /** 获取图片路径*/
     string modDir() {return mModDir;} /** 子模块路径 */
@@ -59,7 +65,7 @@ public:
     static void sighandler(int signal);
     static long long curTime(); /** 当前的时间 */
 
-    //AutoHD<SubDB> db() {return at(SUBDB_ID);} /** 数据库*/
+    AutoHD<SubDB> db() {return at(SUBDB_ID);} /** 数据库*/
     AutoHD<ModSchedul> modSchedul() {return at(MODSCHEDUL_ID);} /** 调度 */
    // AutoHD<SubUI> ui() {return at(SUBUI_ID);} /** 界面操作入口 */
 #if 0
@@ -126,6 +132,10 @@ private:
     const char **mArgv;
     const char **mEnvp;
 
+    XMLNode rootN;
+    time_t cfgTime;
+
+    ResRW mDataRes;
     string mUser; /*用户名 */
     string mCfgFile; /*配置文件名称*/
     string mId; /*站点id */
@@ -135,4 +145,6 @@ private:
 };
 
 extern SYS *sys;
+}
+
 #endif

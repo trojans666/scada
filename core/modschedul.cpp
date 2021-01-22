@@ -13,8 +13,11 @@
 #endif
 
 #include "sys.h"
+#include "log.h"
 #include "stropt.h"
 #include "modschedul.h"
+
+using namespace SCADA;
 
 ModSchedul::ModSchedul()
     :SubSys(MODSCHEDUL_ID,MODSCHEDUL_NAME,false)
@@ -110,7 +113,7 @@ int ModSchedul::libRegister(const std::string &name)
     ResAlloc res(nodeRes(),true);
     stat(name.c_str(),&file_stat);
     unsigned i_sh;
-
+    mess_info("libRegister","lib register %s",name.c_str());
     for(i_sh = 0; i_sh < mSchHD.size(); i_sh++)
         if(mSchHD[i_sh].name == name)
             break;
@@ -144,6 +147,7 @@ void ModSchedul::libAtt(const std::string &iname, bool full)
     for(unsigned int i_sh = 0; i_sh < mSchHD.size(); i_sh++)
         if(mSchHD[i_sh].name == iname)
         {
+            mess_info("libAtt","##%s ##%s",mSchHD[i_sh].name.c_str(),iname.c_str());
             if(mSchHD[i_sh].hd)
                 throw TError(nodePath().c_str(),"SO <%s> is already attached!",iname.c_str());
 
@@ -188,23 +192,24 @@ void ModSchedul::libAtt(const std::string &iname, bool full)
                         //>> Check type module version
                         if( AtMod.t_ver != owner().at(list[i_sub]).at().subVer() )
                         {
-                           // mess_warning(nodePath().c_str(),"%s for type <%s> doesn't support module version: %d!",
-                           //              AtMod.id.c_str(),AtMod.type.c_str(),AtMod.t_ver);
+                            mess_warning(nodePath().c_str(),"%s for type <%s> doesn't support module version: %d!",
+                                         AtMod.id.c_str(),AtMod.type.c_str(),AtMod.t_ver);
                             break;
                         }
                         //>> Check module present
                         if( owner().at(list[i_sub]).at().modPresent(AtMod.id) )
-                           ;// mess_warning(nodePath().c_str(),"Module <%s> is already present!",AtMod.id.c_str());
+                            mess_warning(nodePath().c_str(),"Module <%s> is already present!",AtMod.id.c_str());
                         else
                         {
                             //>> Attach new module
                             Module *LdMod = (attach)( AtMod, iname );
                             if(LdMod == NULL)
                             {
-                               // mess_warning(nodePath().c_str(),"Attach module <%s> error!",AtMod.id.c_str());
+                                mess_warning(nodePath().c_str(),"Attach module <%s> error!",AtMod.id.c_str());
                                 break;
                             }
                             //>> Add atached module
+                            mess_info("11","222 %s %s",list[i_sub].c_str(),LdMod->modId().c_str());
                             owner().at(list[i_sub]).at().modAdd(LdMod);
                             mSchHD[i_sh].use.push_back(list[i_sub]+"."+LdMod->modId());
                             if(full)
@@ -224,6 +229,7 @@ void ModSchedul::libAtt(const std::string &iname, bool full)
                 mSchHD[i_sh].hd = h_lib;
             return;
         }
+    mess_info("libload","ssss");
     throw TError(nodePath().c_str(),"SO <%s> is not present!",iname.c_str());
 }
 
@@ -286,6 +292,7 @@ int ModSchedul::libLoad(const std::string &iname, bool full)
 {
     int ldCnt = 0;
     vector<string> files, llist;
+    mess_info("libLoad","Now,Load all libs from <%s>",iname.c_str());
 
     //> 获取所有lib库
     scanDir(iname, files);
@@ -310,8 +317,8 @@ int ModSchedul::libLoad(const std::string &iname, bool full)
             }
             catch(TError err)
             {
-               // mess_warning(err.cat.c_str(),"%s",err.mess.c_str());
-               // mess_warning(nodePath().c_str(),"Can't detach library <%s>.",files[i_f].c_str());
+                mess_warning(err.cat.c_str(),"%s",err.mess.c_str());
+                mess_warning(nodePath().c_str(),"Can't detach library <%s>.",files[i_f].c_str());
                 continue;
             }
         }
@@ -325,7 +332,7 @@ int ModSchedul::libLoad(const std::string &iname, bool full)
             }
             catch(TError err)
             {
-               // mess_warning(err.cat.c_str(),"%s",err.mess.c_str());
+                mess_warning(err.cat.c_str(),"%s",err.mess.c_str());
             }
         }
     }

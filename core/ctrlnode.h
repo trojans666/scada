@@ -17,6 +17,10 @@ using std::string;
 using std::vector;
 using std::map;
 
+namespace SCADA
+{
+
+
 class CtrlNode;
 
 typedef map<string,CtrlNode *> TMap;
@@ -30,6 +34,16 @@ public:
 
     virtual CtrlNode &operator=(CtrlNode &node);
 
+    enum Flag
+    {
+        Enable = (1U << 0),
+        Disable = (1U << 1),
+        Delete = (1U << 2),
+        Modify = (1U << 3)
+    };
+    unsigned char &nodeFlg()   {return mFlg;}
+    bool isModify() { return ((mFlg ^ (~Modify)) == 1) ? true : false;}
+    void modifClr() {mFlg &= ~(Modify);}
 
     virtual ResRW &UserRes() {return mUserRes;}
     virtual const string &nodeName() = 0; /*节点名称*/
@@ -99,7 +113,9 @@ private:
 
     unsigned short int mUse; /* 引用计数 */
     unsigned short int mOi; /*order index 排序 */
+    unsigned char mFlg; /*节点标志 */
 };
 
+}
 
 #endif

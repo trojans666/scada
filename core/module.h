@@ -14,6 +14,10 @@
 using std::string;
 using std::vector;
 
+namespace SCADA
+{
+
+
 class SubSys;
 
 class Module : public CtrlNode
@@ -95,5 +99,6 @@ private:
     static const char *l_info[]; /* list of the present info options */
 };
 
+}
 
 #endif

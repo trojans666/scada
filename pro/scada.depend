@@ -2,11 +2,15 @@
 1611210638 source:e:\other\scada\main.cpp
 	<stdio.h>
 
+1611201177 
+
 1611201650 source:e:\other\scada\xml\priv\xmlparse.c
 	"expat.h"
 	<stddef.h>
 	"xmltok.h"
 	"xmlrole.h"
+
+1611201650 "
 
 1611207885 e:\other\scada\xml\priv\expat.h
 	<stdlib.h>
@@ -58,6 +62,8 @@
 	"iasciitab.h"
 	"latin1tab.h"
 
+1611207357 .h"
+
 970242458 e:\other\scada\xml\priv\nametab.h
 
 1611201177 e:\other\scada\xml\priv\xmltok_impl.h
@@ -93,4 +99,271 @@
 	<string>
 	<vector>
 	"priv/expat.h"
+
+1611209467 t.h"
+
+1611311928 source:/home/ht/shared/scada/core/ctrlnode.cpp
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<stdio.h>
+	<errno.h>
+	<unistd.h>
+	<dirent.h>
+	<stdarg.h>
+	<limits.h>
+	"stropt.h"
+	"excep.h"
+	"log.h"
+	"ctrlnode.h"
+
+1611282760 /home/ht/shared/scada/core/stropt.h
+	<math.h>
+	<string>
+
+1611210352 /home/ht/shared/scada/excep/excep.h
+	<string>
+
+1611282589 /home/ht/shared/scada/core/ctrlnode.h
+	<string>
+	<vector>
+	<map>
+	"resalloc.h"
+	"autohd.h"
+
+1611282501 /home/ht/shared/scada/core/resalloc.h
+	<pthread.h>
+	<string>
+
+1611282459 /home/ht/shared/scada/core/autohd.h
+	<stdio.h>
+	<string>
+	"excep.h"
+
+1611286404 source:/home/ht/shared/scada/core/log.cpp
+	<stdarg.h>
+	<stdlib.h>
+	<syslog.h>
+	<iostream>
+	"stropt.h"
+	"log.h"
+
+1611282689 /home/ht/shared/scada/core/log.h
+	<stdio.h>
+	<string>
+	<vector>
+
+1611312351 source:/home/ht/shared/scada/core/modschedul.cpp
+	<unistd.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<dirent.h>
+	<stdlib.h>
+	<signal.h>
+	<getopt.h>
+	<string.h>
+	<dlfcn.h>
+	"sys.h"
+	"log.h"
+	"stropt.h"
+	"modschedul.h"
+
+1611286148 /home/ht/shared/scada/core/sys.h
+	<string>
+	<map>
+	<vector>
+	"xml.h"
+	"excep.h"
+	"resalloc.h"
+	"ctrlnode.h"
+	"autohd.h"
+	"subsys.h"
+	"modschedul.h"
+	"subdb.h"
+
+1611209467 /home/ht/shared/scada/xml/xml.h
+	<string>
+	<vector>
+	"priv/expat.h"
+
+1611207885 /home/ht/shared/scada/xml/priv/expat.h
+	<stdlib.h>
+
+1611282774 /home/ht/shared/scada/core/subsys.h
+	<string>
+	<vector>
+	"module.h"
+
+1611282741 /home/ht/shared/scada/core/module.h
+	<string>
+	<vector>
+	"ctrlnode.h"
+	"subsys.h"
+
+1611282706 /home/ht/shared/scada/core/modschedul.h
+	<string>
+	<vector>
+	"subsys.h"
+	"resalloc.h"
+
+1611305342 /home/ht/shared/scada/subsys/subdb.h
+	<string>
+	<vector>
+	"subsys.h"
+	"resalloc.h"
+	"autohd.h"
+	"ctrlnode.h"
+
+1611312247 source:/home/ht/shared/scada/core/module.cpp
+	<sys/types.h>
+	<sys/stat.h>
+	<stdarg.h>
+	<unistd.h>
+	<string.h>
+	<libintl.h>
+	<dlfcn.h>
+	"sys.h"
+	"excep.h"
+	"subsys.h"
+	"module.h"
+	"log.h"
+
+1611282830 source:/home/ht/shared/scada/core/resalloc.cpp
+	<errno.h>
+	<time.h>
+	<signal.h>
+	<exception>
+	"excep.h"
+	"resalloc.h"
+
+1611282821 source:/home/ht/shared/scada/core/stropt.cpp
+	<stdio.h>
+	<stdlib.h>
+	"stropt.h"
+
+1611312098 source:/home/ht/shared/scada/core/subsys.cpp
+	"log.h"
+	"subsys.h"
+
+1611310751 source:/home/ht/shared/scada/core/sys.cpp
+	<stdio.h>
+	<signal.h>
+	<unistd.h>
+	<stdarg.h>
+	<pthread.h>
+	<sys/time.h>
+	<sys/resource.h>
+	<sys/prctl.h>
+	<sys/types.h>
+	<sys/wait.h>
+	<sys/utsname.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<errno.h>
+	"log.h"
+	"stropt.h"
+	"sys.h"
+	<iostream>
+
+1611277505 source:/home/ht/shared/scada/event/event.c
+	<stdio.h>
+	<sys/time.h>
+	<sys/types.h>
+	<unistd.h>
+	<stdlib.h>
+	<sys/epoll.h>
+	"event.h"
+
+1611277505 /home/ht/shared/scada/event/event.h
+	<sys/time.h>
+
+1611224328 source:/home/ht/shared/scada/excep/excep.cpp
+	<stdio.h>
+	<stdarg.h>
+	<string.h>
+	<stdlib.h>
+	<cxxabi.h>
+	<execinfo.h>
+	<dlfcn.h>
+	<string.h>
+	<errno.h>
+	"excep.h"
+
+1611224773 source:/home/ht/shared/scada/xml/priv/xmlparse.c
+	"expat.h"
+	<string.h>
+	<stddef.h>
+	"xmltok.h"
+	"xmlrole.h"
+
+1611201812 /home/ht/shared/scada/xml/priv/xmltok.h
+
+1611199186 /home/ht/shared/scada/xml/priv/xmlrole.h
+	"xmltok.h"
+
+1611199332 source:/home/ht/shared/scada/xml/priv/xmlrole.c
+	"xmlrole.h"
+	"ascii.h"
+
+970242458 /home/ht/shared/scada/xml/priv/ascii.h
+
+1611207357 source:/home/ht/shared/scada/xml/priv/xmltok.c
+	"xmltok.h"
+	"nametab.h"
+	"xmltok_impl.h"
+	"ascii.h"
+	"asciitab.h"
+	"utf8tab.h"
+	"asciitab.h"
+	"utf8tab.h"
+	"iasciitab.h"
+	"utf8tab.h"
+	"iasciitab.h"
+	"utf8tab.h"
+	"asciitab.h"
+	"latin1tab.h"
+	"asciitab.h"
+	"latin1tab.h"
+	"asciitab.h"
+	"asciitab.h"
+	"asciitab.h"
+	"latin1tab.h"
+	"asciitab.h"
+	"latin1tab.h"
+	"iasciitab.h"
+	"latin1tab.h"
+	"iasciitab.h"
+	"latin1tab.h"
+	"asciitab.h"
+	"latin1tab.h"
+	"asciitab.h"
+	"latin1tab.h"
+	"iasciitab.h"
+	"latin1tab.h"
+	"iasciitab.h"
+	"latin1tab.h"
+
+970242458 /home/ht/shared/scada/xml/priv/nametab.h
+
+1611201177 /home/ht/shared/scada/xml/priv/xmltok_impl.h
+	<stddef.h>
+
+970242458 /home/ht/shared/scada/xml/priv/asciitab.h
+
+970242458 /home/ht/shared/scada/xml/priv/utf8tab.h
+
+970242458 /home/ht/shared/scada/xml/priv/iasciitab.h
+
+970242458 /home/ht/shared/scada/xml/priv/latin1tab.h
+
+1611211295 source:/home/ht/shared/scada/xml/xml.cpp
+	"excep.h"
+	"xml.h"
+
+1611312848 source:/home/ht/shared/scada/subsys/subdb.cpp
+	"sys.h"
+	"stropt.h"
+	"subdb.h"
+	"log.h"
 

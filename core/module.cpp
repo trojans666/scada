@@ -12,6 +12,9 @@
 #include "excep.h"
 #include "subsys.h"
 #include "module.h"
+#include "log.h"
+
+using namespace SCADA;
 
 const char *Module::l_info[] =
 {
@@ -20,7 +23,7 @@ const char *Module::l_info[] =
 
 Module::Module(const std::string &id):mId(id)
 {
-
+    mess_info("Module","Module id = %s",mId.c_str());
 }
 
 Module::~Module()

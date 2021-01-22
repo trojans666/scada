@@ -7,18 +7,18 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/scada" prefix_auto="1" extension_auto="1" />
+				<Option output="../output/scada" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
-				<Option type="1" />
+				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/scada" prefix_auto="1" extension_auto="1" />
+				<Option output="../output/scada" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
-				<Option type="1" />
+				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
@@ -30,15 +30,16 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-fPIC -shared" />
 			<Add directory="../xml" />
 			<Add directory="../excep" />
 			<Add directory="../core" />
+			<Add directory="../subsys" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
 			<Add library="dl" />
 		</Linker>
-		<Unit filename="../cfg/config.xml" />
 		<Unit filename="../core/autohd.h" />
 		<Unit filename="../core/ctrlnode.cpp" />
 		<Unit filename="../core/ctrlnode.h" />
@@ -62,7 +63,8 @@
 		<Unit filename="../event/event.h" />
 		<Unit filename="../excep/excep.cpp" />
 		<Unit filename="../excep/excep.h" />
-		<Unit filename="../main.cpp" />
+		<Unit filename="../subsys/subdb.cpp" />
+		<Unit filename="../subsys/subdb.h" />
 		<Unit filename="../xml/priv/ascii.h" />
 		<Unit filename="../xml/priv/asciitab.h" />
 		<Unit filename="../xml/priv/expat.h" />

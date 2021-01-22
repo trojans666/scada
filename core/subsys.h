@@ -13,6 +13,10 @@
 using std::string;
 using std::vector;
 
+namespace SCADA
+{
+
+
 class ModSchedul;
 class SYS;
 class Module;
@@ -52,5 +56,7 @@ private:
     string mId;
     string mName;
 };
+
+}
 
 #endif

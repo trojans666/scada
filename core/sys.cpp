@@ -14,16 +14,19 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <errno.h>
 #endif // __linux__
 
 #include "log.h"
 #include "stropt.h"
-#include "xml.h"
+
 #include "sys.h"
+#include <iostream>
 
+using namespace SCADA;
 
-SYS *sys;
-Log *mLog;
+SYS *SCADA::sys;
+Log *SCADA::mLog;
 
 SYS::SYS(int argi, char **argb, char **env)
     :mStopFlg(-1)
@@ -32,10 +35,10 @@ SYS::SYS(int argi, char **argb, char **env)
     ,mEnvp((const char **)env)
     ,mUser("root")
     ,mCfgFile("cfg/config.xml")
-    ,mId("Scada_Id")
+    ,mId("Scada_ID")
     ,mName("Scada_Name")
     ,mIconDir("pic/")
-    ,mModDir("modules/")
+    ,mModDir("modules")
 {
     sys = this;
     mSubSt = grpAdd("sub_",true); /*true 时会排序 */
@@ -56,7 +59,7 @@ SYS::SYS(int argi, char **argb, char **env)
 
 SYS::~SYS()
 {
-    //del(SUBDB_ID);
+    del(SUBDB_ID);
     if(mLog)
         delete mLog;
 }
@@ -70,7 +73,61 @@ string SYS::host()
 
 bool SYS::cfgFileLoad()
 {
+    int hd = open(mCfgFile.c_str(),O_RDONLY);
+    if(hd < 0)
+    {
+        return false;
+    }
+    string s_buf;
+    int cf_sz = lseek(hd,0,SEEK_END);
+    if(cf_sz > 0)
+    {
+        lseek(hd,0,SEEK_SET);
+        char *buf = (char *)malloc(cf_sz + 1);
+        if(!buf)
+        {
+            mess_debug("cfgFileLoad","malloc failed");
+            return false;
+        }
+        (void)read(hd,buf,cf_sz);
+        buf[cf_sz] = 0;
+        s_buf = buf;
+        free(buf);
+    }
+    close(hd);
 
+    try
+    {
+        ResAlloc res(UserRes(),true);
+        rootN.load(s_buf);
+        if(rootN.name() == "root")
+        {
+            XMLNode *stat_n = NULL;
+            for(int i_st = rootN.childSize()-1; i_st >= 0; i_st--)
+            {
+                if(rootN.childGet(i_st)->name() == "station")
+                {
+                    stat_n = rootN.childGet(i_st);
+                    if(stat_n->attr("id") == mId)
+                        break;
+                }
+            }
+            if(stat_n && stat_n->attr("id") != mId)
+            {
+                mId = stat_n->attr("id");
+            }
+            if(!stat_n)
+                rootN.clear();
+        }
+        else
+        {
+            rootN.clear();
+        }
+    }
+    catch(TError err)
+    {
+
+    }
 
     return true;
 }
@@ -211,7 +268,8 @@ void *SYS::taskWrap(void *stas)
     //tsk->prior = param.sched_priority;
 
 
-    if(tsk->policy != SCHED_RR && tsk->prior > 0 && setpriority(PRIO_PROCESS,tsk->tid,-tsk->prior/5) != 0) tsk->prior = 0;
+    if(tsk->policy != SCHED_RR && tsk->prior > 0 && setpriority(PRIO_PROCESS,tsk->tid,-tsk->prior/5) != 0)
+        tsk->prior = 0;
     tsk->thr = pthread_self();
 
 
@@ -227,7 +285,8 @@ void *SYS::taskWrap(void *stas)
     tsk->flgs |= STask::FinishTask;
 
     //> Remove task object for detached
-    if(tsk->flgs & STask::Detached)	sys->taskDestroy(tsk->path);
+    if(tsk->flgs & STask::Detached)
+        sys->taskDestroy(tsk->path);
 
     return rez;
 }
@@ -306,7 +365,7 @@ void SYS::load_()
 
     if(first_load)
     {
-        //add(new SubDB());
+        add(new SubDB());
         add(new ModSchedul());
 
         /* load modules */
@@ -317,8 +376,8 @@ void SYS::load_()
         }
 
         /* load dbs */
-       // db().at().load();
-
+        // db().at().load();
+        mess_info("ss","1111");
         /* 直接加载所以的子系统和module */
         vector<string> lst;
         list(lst);
@@ -335,7 +394,7 @@ void SYS::load_()
             }
         }
     }
-    if(rez)
+    if(!rez)
         stop();
     first_load = false;
 }
@@ -351,12 +410,39 @@ long long SYS::curTime()
     return (long long)cur_tm.tv_sec*1000000 + cur_tm.tv_usec;
 }
 
+void SYS::cfgFileCheck(bool first)
+{
+    struct stat f_stat;
+    if(stat(cfgFile().c_str(),&f_stat) != 0)
+        return ;
+    bool up = false;
+    if(cfgTime != f_stat.st_mtime)
+        up = true;
+
+    cfgTime = f_stat.st_mtime;
+    mess_info("cfgFileCheck","file check...");
+    if(up && !first)
+    {
+        mess_info("cfgFileCheck","file modify...");
+        modifClr();
+        load();
+    }
+}
+
+#define TABLE_SCADA_DATA_ID "create table if not exists scada_data_id("\
+        "data_id integer primary key not null, "\
+        "value_type integer, "\
+        "data_src integer, "\
+        "gain double, "\
+        "shift double);"
+
 int SYS::start()
 {
     vector<string> lst;
     list(lst);
 
     for(unsigned i_a=0; i_a < lst.size(); i_a++)
+    {
         try
         {
             at(lst[i_a]).at().subStart();
@@ -365,16 +451,36 @@ int SYS::start()
         {
 
         }
+    }
+    cfgFileCheck(true);
 
+    string str = TABLE_SCADA_DATA_ID;
+
+    sys->db().at().at("SQLite").at().open("Test");
+    sys->db().at().at("SQLite").at().at("Test").at().setDBPath("./test.db");
+    sys->db().at().at("SQLite").at().at("Test").at().enable();
+    sys->db().at().at("SQLite").at().at("Test").at().sqlReq(str);
 
     mStopFlg = 0;
+    unsigned int i_cnt = 1;
+    vector<string> ls;
     while(!mStopFlg)
     {
         /* do something */
+        /**** config file change periodic check */
+        if(i_cnt % 2 == 0)
+        {
+            cfgFileCheck(false);
+        }
+
+
+        usleep(1000 * 1000); /* 1s */
+        i_cnt++;
     }
     /* 关闭时保存 数据 */
     save();
     for(int i_a=lst.size()-1; i_a >= 0; i_a--)
+    {
         try
         {
             at(lst[i_a]).at().subStop();
@@ -383,6 +489,8 @@ int SYS::start()
         {
 
         }
+    }
+
 
     return mStopFlg;
 }

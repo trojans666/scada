@@ -1,5 +1,7 @@
-
+#include "log.h"
 #include "subsys.h"
+
+using namespace SCADA;
 
 SubSys::SubSys(const char *id, const char *name, bool modi)
     :mStart(false)
@@ -45,7 +47,9 @@ void SubSys::modAdd( Module *modul )
 {
     if( !subModule() )
         throw TError(nodePath().c_str(),"The subsystem is not modular!");
+    mess_info("modAdd","!! %s",modul->modId().c_str());
     if( chldPresent(mMod,modul->modId()) ) return;
+    mess_info("modAdd",modul->modId().c_str());
     chldAdd(mMod,modul);
 }
 

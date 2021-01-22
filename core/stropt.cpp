@@ -3,6 +3,7 @@
 
 #include "stropt.h"
 
+using namespace SCADA;
 
 /**
 删除开头和结尾的空格

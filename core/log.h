@@ -17,6 +17,9 @@ using std::vector;
 #define mess_alert(cat,fmt,args...) mLog->put(cat,Log::Alert,fmt,##args)
 #define mess_emerg(cat,fmt,args...) mLog->put(cat,Log::Emerg,fmt,##args)
 
+namespace SCADA
+{
+
 class Log
 {
 public:
@@ -54,5 +57,6 @@ private:
 };
 
 extern Log *mLog;
+}
 
 #endif // __LOG_H

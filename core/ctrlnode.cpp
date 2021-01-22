@@ -10,7 +10,10 @@
 
 #include "stropt.h"
 #include "excep.h"
+#include "log.h"
 #include "ctrlnode.h"
+
+using namespace SCADA;
 
 CtrlNode::CtrlNode(CtrlNode *iprev)
     :chGrp(NULL)
@@ -218,6 +221,7 @@ void CtrlNode::chldAdd(char igr, CtrlNode *node, int pos)
         throw TError(nodePath().c_str(),"Group of childs %d error!",igr);
 
     TMap::iterator p;
+    mess_info("chldAdd","nodeName = %s",node->nodeName().c_str());
     if( StrOpt::strNoSpace(node->nodeName()).empty() )
     {
         delete node;

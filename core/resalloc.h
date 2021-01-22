@@ -10,6 +10,9 @@
 
 using std::string;
 
+namespace SCADA
+{
+
 /** RW Resources allocation object		¶ÁÐ´Ëø*/
 class ResRW
 {
@@ -169,6 +172,7 @@ private:
     pthread_condattr_t mCondAttr;
 };
 
+}
 
 #endif
 

@@ -1,4 +1,5 @@
 #include <stdarg.h>
+#include <stdlib.h>
 
 #ifdef __linux__
 #include <syslog.h>
@@ -8,6 +9,8 @@
 
 #include "stropt.h"
 #include "log.h"
+
+using namespace SCADA;
 
 Log::Log():mMessLevel(0),mLogDir(DIR_STDOUT)
 {
@@ -80,10 +83,9 @@ void Log::put(const char *cat,char level,const char *fmt,...)
         }
         syslog(level_sys,"%s",s_mess.c_str());
     }
-    printf("## %d\n",mLogDir);
+
     if( mLogDir & DIR_STDOUT )
-        printf("jfsklfjs1111\n");
-        //fprintf(stdout,"%s \n",s_mess.c_str());
+        fprintf(stdout,"%s \n",s_mess.c_str());
     if( mLogDir & DIR_STDERR)
         fprintf(stderr,"%s \n",s_mess.c_str());
 

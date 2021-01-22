@@ -10,6 +10,9 @@
 /**
  *@brief
  */
+namespace SCADA
+{
+
 template<typename ORes>
 class AutoHD
 {
@@ -74,5 +77,6 @@ private:
     ORes *mNode;
 };
 
+}
 
 #endif // __AUTOHD_H

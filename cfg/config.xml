@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <root>
     <!-- 站点名称-->
-    <station id="TestStation">
-        <prm id="StName">TestStName</prm>
+    <station id="Scada_ID">
+        <prm id="StName">Scada_Name</prm>
         <prm id="IconDir">./icons</prm>
         <prm id="ModDir">./modules</prm>
         <prm id="MessLev">0</prm>

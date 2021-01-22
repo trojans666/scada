@@ -17,6 +17,10 @@ using std::vector;
 #define MODSCHEDUL_ID       "ModSched"
 #define MODSCHEDUL_NAME     "Modules sheduler"
 
+namespace SCADA
+{
+
+
 class ModSchedul : public SubSys
 {
 public:
@@ -60,5 +64,5 @@ private:
     ResRW mRes;
 };
 
-
+}
 #endif

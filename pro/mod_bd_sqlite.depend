@@ -1,0 +1,111 @@
+# depslib dependency file v1.0
+1611293070 source:/home/ht/shared/scada/modules/bd/sqlite/bd_sqlite.cpp
+	"bd_sqlite.h"
+
+1611292704 /home/ht/shared/scada/modules/bd/sqlite/bd_sqlite.h
+	<string>
+	<vector>
+	"module.h"
+	"subdb.h"
+	"resalloc.h"
+	"sqlite3.h"
+
+1611282741 /home/ht/shared/scada/core/module.h
+	<string>
+	<vector>
+	"ctrlnode.h"
+	"subsys.h"
+
+1611282589 /home/ht/shared/scada/core/ctrlnode.h
+	<string>
+	<vector>
+	<map>
+	"resalloc.h"
+	"autohd.h"
+
+1611282501 /home/ht/shared/scada/core/resalloc.h
+	<pthread.h>
+	<string>
+
+1611282459 /home/ht/shared/scada/core/autohd.h
+	<stdio.h>
+	<string>
+	"excep.h"
+
+1611210352 /home/ht/shared/scada/excep/excep.h
+	<string>
+
+1611282774 /home/ht/shared/scada/core/subsys.h
+	<string>
+	<vector>
+	"module.h"
+
+1611292598 /home/ht/shared/scada/subsys/subdb.h
+	<string>
+	<vector>
+	"subsys.h"
+	"resalloc.h"
+	"autohd.h"
+
+1611192330 /home/ht/shared/scada/modules/bd/sqlite/sqlite3.h
+	<stdarg.h>
+
+1611192330 source:/home/ht/shared/scada/modules/bd/sqlite/sqlite3.c
+	"config.h"
+	<vxWorks.h>
+	<pthread.h>
+	"mingw.h"
+	"_mingw.h"
+	<stdarg.h>
+	<stdint.h>
+	<inttypes.h>
+	<intrin.h>
+	<cmnintrin.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<stddef.h>
+	<TargetConditionals.h>
+	<ctype.h>
+	<time.h>
+	<sys/sysctl.h>
+	<malloc/malloc.h>
+	<libkern/OSAtomic.h>
+	<malloc.h>
+	<pthread.h>
+	"windows.h"
+	<sys/cygwin.h>
+	<errno.h>
+	<process.h>
+	<math.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<sys/ioctl.h>
+	<unistd.h>
+	<sys/time.h>
+	<errno.h>
+	<sys/mman.h>
+	<sys/file.h>
+	<sys/param.h>
+	<semaphore.h>
+	<limits.h>
+	<sys/mount.h>
+	<utime.h>
+	<sys/dcmd_blk.h>
+	<sys/statvfs.h>
+	<dlfcn.h>
+	"sqlite_tcl.h"
+	"tcl.h"
+	<ctype.h>
+	"sqlite3rtree.h"
+	<ctype.h>
+	<unicode/utypes.h>
+	<unicode/uregex.h>
+	<unicode/ustring.h>
+	<unicode/ucol.h>
+	<unicode/ubrk.h>
+	<unicode/utf16.h>
+	<math.h>
+

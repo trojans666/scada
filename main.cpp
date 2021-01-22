@@ -4,6 +4,8 @@
 
 using std::string;
 
+using namespace SCADA;
+
 int main(int argc,char *argv[],char **envp)
 {
     int rez = 0;

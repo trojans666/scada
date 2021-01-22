@@ -102,7 +102,9 @@ public:
     /* 该表是否存在 */
     bool openStat(const string &idb) {return chldPresent(m_db,idb);}
     /* 这里的open是把 sqlite mysql 这类module加载到grp中  */
+    /* add a database to grp */
     void open(const string &iid);
+    /* del a database from grp */
     void close(const string &iid,bool er = false) {chldDel(m_db,iid,-1,er);}
     /* 访问数据库 */
     AutoHD<DataBase> at(const string &name) {return chldAt(m_db,name);}

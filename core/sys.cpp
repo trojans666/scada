@@ -429,13 +429,6 @@ void SYS::cfgFileCheck(bool first)
     }
 }
 
-#define TABLE_SCADA_DATA_ID "create table if not exists scada_data_id("\
-        "data_id integer primary key not null, "\
-        "value_type integer, "\
-        "data_src integer, "\
-        "gain double, "\
-        "shift double);"
-
 int SYS::start()
 {
     vector<string> lst;
@@ -454,12 +447,7 @@ int SYS::start()
     }
     cfgFileCheck(true);
 
-    string str = TABLE_SCADA_DATA_ID;
 
-    sys->db().at().at("SQLite").at().open("Test");
-    sys->db().at().at("SQLite").at().at("Test").at().setDBPath("./test.db");
-    sys->db().at().at("SQLite").at().at("Test").at().enable();
-    sys->db().at().at("SQLite").at().at("Test").at().sqlReq(str);
 
     mStopFlg = 0;
     unsigned int i_cnt = 1;

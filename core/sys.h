@@ -59,6 +59,8 @@ public:
 
     string icoDir() {return mIconDir;} /** 获取图片路径*/
     string modDir() {return mModDir;} /** 子模块路径 */
+    string DBDir() {return mDBDir;} /** 数据库存放目录 */
+
     /** 配置文件路径 */
     string cfgFile() {return mCfgFile;}
     /** 信号处理函数 */
@@ -142,6 +144,7 @@ private:
     string mName; /*站点名称 */
     string mIconDir; /*图片路径*/
     string mModDir; /*子模块库路径*/
+    string mDBDir; /* 数据库存放目录 */
 };
 
 extern SYS *sys;

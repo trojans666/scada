@@ -36,6 +36,7 @@ public:
     ~DataBaseSqlite();
 
     void enable();
+    bool isEnable();
     void disable();
     /* intoTran 是否开启事务 */
     void sqlReq(const string &req,vector< vector<string> > *tbl = NULL);

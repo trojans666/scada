@@ -48,10 +48,13 @@ class DataBase : public CtrlNode
 public:
     DataBase(const string &iid);
     virtual ~DataBase();
+
     /* 数据库的打开和关闭 */
     virtual void enable() {}
+    virtual bool isEnable() {return false;}
     virtual void disable() {}
 
+    /*** 以下函数只是将 Table 结构体放到了grp中 并没有实际操作能力 */
     void list(vector<string> &list) {chldList(mTbl,list);}
     bool openStat(const string &table) {return chldPresent(mTbl,table);}
     /* 此处的open是将 table加入到grp中没有的话可以创建由create控制 */
@@ -59,6 +62,8 @@ public:
     void close(const string &table,bool del = false) {chldDel(mTbl,table,-1,del);}
 
     AutoHD<DBTable> at(const string &name) {return chldAt(mTbl,name);}
+
+    /************ end **********/
 
     /* sql request */
     virtual void sqlReq(const string &req,vector< vector<string> > *tbl = NULL)
@@ -137,6 +142,18 @@ public:
     void close(const string &bdn,bool del = false);
 
     AutoHD<ModDB> at(const string &iid) {return modAt(iid);}
+
+    /**
+     * @brief openDB  打开或创建一个数据库
+     * @param path  xx.db
+     * @param create 不存在的话是否创建
+     * @return
+     */
+    bool openDB(const std::string dbName, bool create = true);
+    bool isOpen(const string dbName);
+    void closeDB(const string dbName);
+
+    void sqlReqeust(const string dbName,const string &req,vector< vector<string> > *tbl = NULL);
 
     ResRW &nodeRes() {return mRes;}
 protected:

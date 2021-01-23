@@ -93,6 +93,11 @@ void DataBaseSqlite::enable()
     DataBase::enable();
 }
 
+bool DataBaseSqlite::isEnable()
+{
+    return (m_db != NULL) ? true : false;
+}
+
 void DataBaseSqlite::disable()
 {
     DataBase::disable();

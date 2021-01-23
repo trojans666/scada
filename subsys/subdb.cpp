@@ -181,4 +181,83 @@ sys->db().at().at("SQLite").at().at("Test").at().setDBPath("./test.db");
 sys->db().at().at("SQLite").at().at("Test").at().enable();
 sys->db().at().at("SQLite").at().at("Test").at().sqlReq(str);
 
+    string dbName = "test.db";
+    sys->db().at().openDB(dbName);
+
+#define TABLE_SCADA_DATA_ID "create table if not exists scada_data_id("\
+        "data_id integer primary key not null, "\
+        "value_type integer, "\
+        "data_src integer, "\
+        "gain double, "\
+        "shift double);"""
+
+    string req = TABLE_SCADA_DATA_ID;
+
+    sys->db().at().sqlReqeust(dbName,req);
+
+    dbName = "test1";
+    sys->db().at().openDB(dbName);
+
+    sys->db().at().sqlReqeust(dbName,req);
+
+
 */
+
+bool SubDB::openDB(const std::string dbName, bool create)
+{
+    string iid = StrOpt::strSepParse(dbName,0,'.');
+    if(iid.empty())
+        iid = dbName;
+    mess_info("openDB","##%s",iid.c_str());
+    if(!at("SQLite").at().openStat(iid) && create)
+    {
+
+        at("SQLite").at().open(iid);
+    }
+    else
+    {
+        mess_info("openDB","false....");
+        return false;
+    }
+
+    at("SQLite").at().at(iid).at().setDBPath(sys->DBDir() + "/" + dbName);
+    at("SQLite").at().at(iid).at().enable();
+
+    return true;
+}
+
+bool SubDB::isOpen(const std::string dbName)
+{
+    string iid = StrOpt::strSepParse(dbName,0,'.');
+    if(iid.empty())
+        iid = dbName;
+
+    if(at("SQLite").at().openStat(iid))
+    {
+        return at("SQLite").at().at(iid).at().isEnable();
+    }
+    return false;
+}
+
+void SubDB::closeDB(const std::string dbName)
+{
+    string iid = StrOpt::strSepParse(dbName,0,'.');
+    if(iid.empty())
+        iid = dbName;
+
+    if(at("SQLite").at().openStat(iid))
+    {
+        at("SQLite").at().at(iid).at().disable();
+    }
+}
+
+void SubDB::sqlReqeust(const string dbName,const std::string &req, vector<vector<std::string> > *tbl)
+{
+    string iid = StrOpt::strSepParse(dbName,0,'.');
+    if(iid.empty())
+        iid = dbName;
+
+    /* 这里不判断是否使能了  */
+    mess_info("sqlRequest","##%s",iid.c_str());
+    at("SQLite").at().at(iid).at().sqlReq(req,tbl);
+}

@@ -39,6 +39,7 @@ SYS::SYS(int argi, char **argb, char **env)
     ,mName("Scada_Name")
     ,mIconDir("pic/")
     ,mModDir("modules")
+    ,mDBDir("db")
 {
     sys = this;
     mSubSt = grpAdd("sub_",true); /*true  ±ª·≈≈–Ú */
@@ -446,7 +447,6 @@ int SYS::start()
         }
     }
     cfgFileCheck(true);
-
 
 
     mStopFlg = 0;

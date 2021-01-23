@@ -1,5 +1,7 @@
 ../../subsys/subdb.cpp
 ../../subsys/subdb.h
+../../subsys/subui.cpp
+../../subsys/subui.h
 ../../xml/priv/ascii.h
 ../../xml/priv/asciitab.h
 ../../xml/priv/expat.h

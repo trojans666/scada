@@ -65,6 +65,8 @@
 		<Unit filename="../excep/excep.h" />
 		<Unit filename="../subsys/subdb.cpp" />
 		<Unit filename="../subsys/subdb.h" />
+		<Unit filename="../subsys/subui.cpp" />
+		<Unit filename="../subsys/subui.h" />
 		<Unit filename="../xml/priv/ascii.h" />
 		<Unit filename="../xml/priv/asciitab.h" />
 		<Unit filename="../xml/priv/expat.h" />

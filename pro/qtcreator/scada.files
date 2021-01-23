@@ -1,3 +1,5 @@
+../../modules/ui/QTStarter/ui_start.cpp
+../../modules/ui/QTStarter/ui_start.h
 ../../subsys/subdb.cpp
 ../../subsys/subdb.h
 ../../subsys/subui.cpp

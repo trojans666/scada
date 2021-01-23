@@ -2,6 +2,7 @@
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
 		<Project filename="mod_bd_sqlite.cbp" />
+		<Project filename="mod_ui_qtstart.cbp" />
 		<Project filename="scada.cbp" />
 		<Project filename="main.cbp" />
 	</Workspace>

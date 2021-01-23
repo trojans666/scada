@@ -67,10 +67,7 @@ void ModQTStart::modStop()
 {
     if(run_st)
     {
-        try
-        {
-            sys->taskDestroy(nodePath('.',true),&run_st);
-        }
+       sys->taskDestroy(nodePath('.',true),&run_st);
     }
 }
 

@@ -1,9 +1,11 @@
 TARGET = scada
 TEMPLATE = lib
 
+CONFIG += plugin
+
 QT -= gui core
 
-# CONFIG += debug_and_release debug release
+# CONFIG += release #debug_and_release debug
 
 DESTDIR = $$PWD/../output
 

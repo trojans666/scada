@@ -1,4 +1,10 @@
 #include <QApplication>
+#include <QMainWindow>
+#include <QPushButton>
+#include <QTextCodec>
+#include <QSplashScreen>
+#include <QFrame>
+#include <QVBoxLayout>
 
 #include "sys.h"
 #include "stropt.h"
@@ -88,7 +94,7 @@ void *ModQTStart::Task(void *)
     QtApp->installTranslator(&translator);
 
     /* start splash */
-    ico_t.load();
+    ico_t.load("");
     QSplashScreen *splash = new QSplashScreen(QPixmap::fromImage(ioc_t));
     splash->show();
     QFont wFnt = splash->font();
@@ -134,7 +140,7 @@ void *ModQTStart::Task(void *)
     delete winCntr;
 
     /* stop splash cretae */
-    ico_t.load();
+    ico_t.load("");
     splash = new QSplashScreen(QPixmap::fromImage(ico_t));
     splash->show();
     splash->setFont(wFnt);

@@ -24,7 +24,7 @@ public:
 protected:
 
 private:
-    QTimer *tm;
+
 };
 
 /* mod ui */

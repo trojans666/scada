@@ -18,6 +18,7 @@ unix {
 #LIBS += -L$$PWD/../../output -lscada
 
 OBJECTS_DIR = $$PWD/../../pro/obj
+MOC_DIR = $$PWD/../../pro/obj
 
 INCLUDEPATH += /usr/loca/Trolltech/Qt4.8.6/include
 

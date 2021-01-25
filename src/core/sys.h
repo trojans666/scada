@@ -19,7 +19,7 @@
 #include "subsys.h"
 #include "modschedul.h"
 #include "subdb.h"
-//#include "subui.h"
+#include "subui.h"
 
 
 using std::vector;
@@ -42,9 +42,9 @@ public:
     /* 是否停止标志 */
     int stopFlg() {return mStopFlg;}
 
-    int argc_()const {return mArgc;}
-    const char **argv_()  {return mArgv;}
-    const char **envp_()  {return mEnvp;}
+    int &argc_() {return mArgc;}
+    char **argv_()  {return mArgv;}
+    char **envp_()  {return mEnvp;}
     /* 站点id 名称 用户名 主机名 */
     const string &id() {return mId;}
     string name() {return mName;}
@@ -69,7 +69,7 @@ public:
 
     AutoHD<SubDB> db() {return at(SUBDB_ID);} /** 数据库*/
     AutoHD<ModSchedul> modSchedul() {return at(MODSCHEDUL_ID);} /** 调度 */
-   // AutoHD<SubUI> ui() {return at(SUBUI_ID);} /** 界面操作入口 */
+    AutoHD<SubUI> ui() {return at(SUBUI_ID);} /** 界面操作入口 */
 #if 0
     AutoHD<TUIS> ui() {return at("UI");}
     AutoHD<TArchive> archive() {return at("Archive");} /** 存储*/
@@ -130,9 +130,9 @@ private:
     int mSubSt;
     int mStopFlg; /*停止标志 */
 
-    const int mArgc;
-    const char **mArgv;
-    const char **mEnvp;
+    int mArgc;
+    char **mArgv;
+    char **mEnvp;
 
     XMLNode rootN;
     time_t cfgTime;

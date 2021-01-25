@@ -50,7 +50,8 @@ HEADERS += \
     $$PWD/xml/priv/xmlrole.h \
     $$PWD/xml/priv/xmltok.h \
     $$PWD/xml/priv/xmltok_impl.h \
-    $$PWD/xml/xml.h
+    $$PWD/xml/xml.h \
+
 
 SOURCES += \
     $$PWD/core/ctrlnode.cpp \
@@ -68,4 +69,5 @@ SOURCES += \
     $$PWD/event/event.c \
     $$PWD/xml/priv/xmlparse.c \
     $$PWD/xml/priv/xmlrole.c \
-    $$PWD/xml/priv/xmltok.c
+    $$PWD/xml/priv/xmltok.c \
+

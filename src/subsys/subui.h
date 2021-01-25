@@ -6,7 +6,7 @@
 #define __SUBUI_H
 
 #include "subsys.h"
-#include "module.h"
+
 
 #define SUBUI_VER       1
 

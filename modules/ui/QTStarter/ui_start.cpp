@@ -5,9 +5,13 @@
 #include <QSplashScreen>
 #include <QFrame>
 #include <QVBoxLayout>
+#include <QMenu>
+#include <QToolBar>
+#include <QMenuBar>
 
 #include "sys.h"
 #include "stropt.h"
+#include "log.h"
 #include "ui_start.h"
 
 /********* attribute *******/
@@ -63,8 +67,10 @@ ModQTStart::~ModQTStart()
 
 void ModQTStart::modStart()
 {
+    mess_info("modStart","qtstart modstart");
     if(!run_st)
     {
+         mess_info("modStart","qtstart modstart");
         sys->taskCreate(nodePath('.',true),0,Task,this);
     }
 }
@@ -79,6 +85,7 @@ void ModQTStart::modStop()
 
 void *ModQTStart::Task(void *)
 {
+    mess_info("Task","task start....");
     vector<string> list;
     bool first_ent = true;
     QImage ico_t;
@@ -95,7 +102,7 @@ void *ModQTStart::Task(void *)
 
     /* start splash */
     ico_t.load("");
-    QSplashScreen *splash = new QSplashScreen(QPixmap::fromImage(ioc_t));
+    QSplashScreen *splash = new QSplashScreen(QPixmap::fromImage(ico_t));
     splash->show();
     QFont wFnt = splash->font();
     wFnt.setPixelSize(10);
@@ -129,9 +136,9 @@ void *ModQTStart::Task(void *)
             }
         }
     }
-
+    mess_info("Task","sss");
     /* start call dialog */
-    if(QApplication::topLevelWidgets().isEmpty())
+   // if(QApplication::topLevelWidgets().isEmpty())
         winCntr->startDialog();
 
     QtApp->exec();
@@ -169,8 +176,8 @@ bool WinControl::callQTModule(const std::string &nm)
 {
     vector<string> list;
 
-    AutoHD<TModule> qt_mod = mod->owner().modAt(nm);
-    QMainWindow *(TModule::*openWindow)( );
+    AutoHD<Module> qt_mod = mod->owner().modAt(nm);
+    QMainWindow *(Module::*openWindow)( );
     qt_mod.at().modFunc("QMainWindow *openWindow();",(void (Module::**)()) &openWindow);
     QMainWindow *new_wnd = ((&qt_mod.at())->*openWindow)( );
     if( !new_wnd ) return false;
@@ -192,13 +199,13 @@ bool WinControl::callQTModule(const std::string &nm)
     if( mod->owner().modAt(list[i_l]).at().modInfo("SubType") == "QT" &&
         mod->owner().modAt(list[i_l]).at().modFuncPresent("QMainWindow *openWindow();") )
     {
-    AutoHD<TModule> qt_mod = mod->owner().modAt(list[i_l]);
+    AutoHD<Module> qt_mod = mod->owner().modAt(list[i_l]);
 
     QIcon icon;
     if( mod->owner().modAt(list[i_l]).at().modFuncPresent("QIcon icon();") )
     {
-        QIcon(TModule::*iconGet)();
-        mod->owner().modAt(list[i_l]).at().modFunc("QIcon icon();",(void (TModule::**)()) &iconGet);
+        QIcon(Module::*iconGet)();
+        mod->owner().modAt(list[i_l]).at().modFunc("QIcon icon();",(void (Module::**)()) &iconGet);
         icon = ((&mod->owner().modAt(list[i_l]).at())->*iconGet)( );
     }
     else icon = QIcon(":/images/oscada_qt.png");
@@ -207,7 +214,7 @@ bool WinControl::callQTModule(const std::string &nm)
 
     act_1->setToolTip(qt_mod.at().modName().c_str());
     act_1->setWhatsThis(qt_mod.at().modInfo("Description").c_str());
-    QObject::connect(act_1, SIGNAL(activated()), this, SLOT(callQTModule()));
+    //QObject::connect(act_1, SIGNAL(activated()), this, SLOT(callQTModule()));
 
     if( toolBar ) toolBar->addAction(act_1);
     if( menu ) menu->addAction(act_1);
@@ -221,9 +228,9 @@ bool WinControl::callQTModule(const std::string &nm)
 void WinControl::startDialog()
 {
     vector<string> list;
-
+    mess_info("startDialog","start dialog");
     QMainWindow *new_wnd = new QMainWindow( );
-    new_wnd->setWindowTitle(_("OpenSCADA system QT-starter"));
+    new_wnd->setWindowTitle("OpenSCADA system QT-starter");
     new_wnd->setWindowIcon(QIcon(":/images/oscada_qt.png"));
 
     new_wnd->setCentralWidget( new QWidget(new_wnd) );
@@ -259,7 +266,7 @@ void WinControl::startDialog()
     gFrame->setFrameShadow(QFrame::Raised);
     new_wnd_lay->addWidget(gFrame,0,0);
 
-    QPushButton *butt = new QPushButton(QIcon(":/images/exit.png"),_("Exit from system"), new_wnd->centralWidget());
+    QPushButton *butt = new QPushButton(QIcon(":/images/exit.png"),"Exit from system", new_wnd->centralWidget());
     butt->setObjectName("*exit*");
     //QObject::connect(butt, SIGNAL(clicked(bool)), this, SLOT(callQTModule()));
     new_wnd_lay->addWidget( butt, 0, 0 );

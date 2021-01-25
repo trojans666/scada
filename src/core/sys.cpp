@@ -31,8 +31,8 @@ Log *SCADA::mLog;
 SYS::SYS(int argi, char **argb, char **env)
     :mStopFlg(-1)
     ,mArgc(argi)
-    ,mArgv((const char **)argb)
-    ,mEnvp((const char **)env)
+    ,mArgv((char **)argb)
+    ,mEnvp((char **)env)
     ,mUser("root")
     ,mCfgFile("cfg/config.xml")
     ,mId("Scada_ID")
@@ -61,6 +61,7 @@ SYS::SYS(int argi, char **argb, char **env)
 SYS::~SYS()
 {
     del(SUBDB_ID);
+    del(SUBUI_ID);
     if(mLog)
         delete mLog;
 }
@@ -367,6 +368,7 @@ void SYS::load_()
     if(first_load)
     {
         add(new SubDB());
+        add(new SubUI());
         add(new ModSchedul());
 
         /* load modules */
@@ -421,10 +423,10 @@ void SYS::cfgFileCheck(bool first)
         up = true;
 
     cfgTime = f_stat.st_mtime;
-    mess_info("cfgFileCheck","file check...");
+   // mess_info("cfgFileCheck","file check...");
     if(up && !first)
     {
-        mess_info("cfgFileCheck","file modify...");
+      //  mess_info("cfgFileCheck","file modify...");
         modifClr();
         load();
     }

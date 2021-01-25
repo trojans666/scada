@@ -21,6 +21,9 @@ public:
     bool callQTModule(const string &nm);
     void startDialog();
 
+private slots:
+    void lastWinClose();
+
 protected:
 
 private:
@@ -34,7 +37,6 @@ public:
     ModQTStart(string name);
     ~ModQTStart();
 
-    bool endRun()   {return end_run;}
     bool startCom() {return start_com;}
     string startMod()   {return start_mod;}
 
@@ -44,13 +46,13 @@ public:
     void modStop();
 
 protected:
-    void load_() {}
+    void load_();
     void save_() {}
 
 private:
     static void *Task(void *);
 
-    bool demon_mode,end_run,start_com;
+    bool start_com;
     string start_mod;
 };
 

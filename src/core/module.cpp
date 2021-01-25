@@ -56,8 +56,12 @@ void Module::modFuncList( vector<string> &list )
 bool Module::modFuncPresent( const string &prot )
 {
     for(unsigned int i=0; i < mEfunc.size(); i++)
+    {
+        mess_info("modFuncPresent","modFun = %s ",mEfunc[i]->prot.c_str());
         if( mEfunc[i]->prot == prot )
             return true;
+    }
+
     return false;
 }
 

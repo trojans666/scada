@@ -1,3 +1,6 @@
+#include <unistd.h>
+
+
 #include <QApplication>
 #include <QMainWindow>
 #include <QPushButton>
@@ -46,7 +49,7 @@ extern "C"
 
 using namespace QTStarter;
 
-ModQTStart::ModQTStart(std::string name):ModUI(QT_MOD_ID),end_run(false),demon_mode(false), start_com(false)
+ModQTStart::ModQTStart(std::string name):ModUI(QT_MOD_ID),start_com(false)
 {
     mod = this;
 
@@ -65,43 +68,52 @@ ModQTStart::~ModQTStart()
         modStop();
 }
 
+void ModQTStart::load_()
+{
+
+}
+
 void ModQTStart::modStart()
 {
-    mess_info("modStart","qtstart modstart");
-    if(!run_st)
-    {
-         mess_info("modStart","qtstart modstart");
-        sys->taskCreate(nodePath('.',true),0,Task,this);
-    }
+   if(!run_st)
+   {
+        mess_info("modStart","qtstart modstart");
+       sys->taskCreate(nodePath('.',true) + "qtstart",0,Task,this);
+   }
 }
 
 void ModQTStart::modStop()
 {
+    start_com = false;
     if(run_st)
     {
-       sys->taskDestroy(nodePath('.',true),&run_st);
+        mess_info("modstop","qtstart stop");
+       sys->taskDestroy(nodePath('.',true) + "qtstart",&run_st);
     }
+
 }
 
 void *ModQTStart::Task(void *)
 {
     mess_info("Task","task start....");
-    vector<string> list;
+
     bool first_ent = true;
     QImage ico_t;
     time_t st_time = time(NULL);
 
+    /* en for string */
     QTextCodec::setCodecForCStrings( QTextCodec::codecForLocale () );
 
     QApplication *QtApp = new QApplication(sys->argc_(),sys->argv_());
-    QtApp->setQuitOnLastWindowClosed(false);
+    /* The program exits when the last window exits */
+
     mod->run_st = true;
 
     QTranslator translator;
     QtApp->installTranslator(&translator);
 
     /* start splash */
-    ico_t.load("");
+    ico_t.load("icon/QTStarter_splash.png");
     QSplashScreen *splash = new QSplashScreen(QPixmap::fromImage(ico_t));
     splash->show();
     QFont wFnt = splash->font();
@@ -109,52 +121,45 @@ void *ModQTStart::Task(void *)
     splash->setFont(wFnt);
 
     /* 启动中 加载中  */
+    QString mess = "Starting... Please Wait!!!";
+    int i = 3;
+    do
+    {
+       mess_info("splash","!!!!!!!!!!!");
+       splash->showMessage(mess,Qt::AlignBottom | Qt::AlignLeft);
+       QtApp->processEvents();
+       usleep(1000 * 1000); /* 500 ms */
+    }while(i--);
 
     delete splash;
 
     /* start external modules */
     WinControl *winCntr = new WinControl();
 
-    int op_wnd = 0;
-    mod->owner().modList(list);
-    for(unsigned int i_l = 0;i_l < list.size();i_l++)
-    {
-        if(mod->owner().modAt(list[i_l]).at().modInfo("SubType") == "QT" &&
-                mod->owner().modAt(list[i_l]).at().modFuncPresent("QMainWindow *openWinwod();"))
-        {
-            int i_off = 0;
-            string s_el;
-            while((s_el = StrOpt::strSepParse(mod->start_mod,0,';',&i_off)).size())
-            {
-                if(s_el == list[i_l])
-                    break;
-                if(!s_el.empty() || !i_off)
-                {
-                    if(winCntr->callQTModule(list[i_l]))
-                        op_wnd++;
-                }
-            }
-        }
-    }
-    mess_info("Task","sss");
+    mess_info("wincntr","$$$$$$$");
     /* start call dialog */
-   // if(QApplication::topLevelWidgets().isEmpty())
+    if(QApplication::topLevelWidgets().isEmpty())
         winCntr->startDialog();
+    mess_info("wincntr","22222");
+    QObject::connect(QtApp,SIGNAL(lastWindowClosed()),winCntr,SLOT(lastWinClose()));
 
+    mess_info("exec","####");
     QtApp->exec();
 
     /* stop over ***/
     delete winCntr;
 
     /* stop splash cretae */
-    ico_t.load("");
+    ico_t.load("icon/QTStarter_splash1.png");
     splash = new QSplashScreen(QPixmap::fromImage(ico_t));
     splash->show();
     splash->setFont(wFnt);
 
     st_time = time(NULL);
 
-    /* 打印信息  */
+    /* show message */
+
+
     delete splash;
 
     /* free application */
@@ -166,110 +171,56 @@ void *ModQTStart::Task(void *)
     return NULL;
 }
 
+/* priv slots */
+void WinControl::lastWinClose()
+{
+    if(sys->stopFlg())
+    {
+        mess_info("lastwinclose","app quit...");
+        qApp->quit(); /* stop */
+    }
+    else
+        startDialog(); /* restart */
+}
+
 /*** wincontrol */
 WinControl::WinControl()
 {
 
 }
 
-bool WinControl::callQTModule(const std::string &nm)
-{
-    vector<string> list;
-
-    AutoHD<Module> qt_mod = mod->owner().modAt(nm);
-    QMainWindow *(Module::*openWindow)( );
-    qt_mod.at().modFunc("QMainWindow *openWindow();",(void (Module::**)()) &openWindow);
-    QMainWindow *new_wnd = ((&qt_mod.at())->*openWindow)( );
-    if( !new_wnd ) return false;
-
-    //> Make QT starter toolbar
-    QToolBar *toolBar = NULL;
-    QMenu *menu = NULL;
-    if( !new_wnd->property("QTStarterToolDis").toBool() )
-    {
-    toolBar = new QToolBar("QTStarter",new_wnd);
-    toolBar->setObjectName("QTStarterTool");
-    new_wnd->addToolBar(toolBar);
-    }
-    if( !new_wnd->property("QTStarterMenuDis").toBool() && !new_wnd->menuBar()->actions().empty() )
-    menu = new_wnd->menuBar()->addMenu("QTStarter");
-
-    mod->owner().modList(list);
-    for( unsigned i_l = 0; i_l < list.size(); i_l++ )
-    if( mod->owner().modAt(list[i_l]).at().modInfo("SubType") == "QT" &&
-        mod->owner().modAt(list[i_l]).at().modFuncPresent("QMainWindow *openWindow();") )
-    {
-    AutoHD<Module> qt_mod = mod->owner().modAt(list[i_l]);
-
-    QIcon icon;
-    if( mod->owner().modAt(list[i_l]).at().modFuncPresent("QIcon icon();") )
-    {
-        QIcon(Module::*iconGet)();
-        mod->owner().modAt(list[i_l]).at().modFunc("QIcon icon();",(void (Module::**)()) &iconGet);
-        icon = ((&mod->owner().modAt(list[i_l]).at())->*iconGet)( );
-    }
-    else icon = QIcon(":/images/oscada_qt.png");
-    QAction *act_1 = new QAction(icon,qt_mod.at().modName().c_str(),new_wnd);
-    act_1->setObjectName(list[i_l].c_str());
-
-    act_1->setToolTip(qt_mod.at().modName().c_str());
-    act_1->setWhatsThis(qt_mod.at().modInfo("Description").c_str());
-    //QObject::connect(act_1, SIGNAL(activated()), this, SLOT(callQTModule()));
-
-    if( toolBar ) toolBar->addAction(act_1);
-    if( menu ) menu->addAction(act_1);
-    }
-
-    new_wnd->show();
-
-    return true;
-}
-
 void WinControl::startDialog()
 {
     vector<string> list;
-    mess_info("startDialog","start dialog");
-    QMainWindow *new_wnd = new QMainWindow( );
-    new_wnd->setWindowTitle("OpenSCADA system QT-starter");
-    new_wnd->setWindowIcon(QIcon(":/images/oscada_qt.png"));
-
-    new_wnd->setCentralWidget( new QWidget(new_wnd) );
-    QVBoxLayout *new_wnd_lay = new QVBoxLayout(new_wnd->centralWidget());
-    new_wnd_lay->setMargin(6);
-    new_wnd_lay->setSpacing(4);
-
     mod->owner().modList(list);
-    for( unsigned i_l = 0; i_l < list.size(); i_l++ )
-        if( mod->owner().modAt(list[i_l]).at().modInfo("SubType") == "QT" &&
-                mod->owner().modAt(list[i_l]).at().modFuncPresent("QMainWindow *openWindow();") )
+    unsigned int i_l;
+    mess_info("startdialog","##%d",list.size());
+    for( i_l = 0;i_l < list.size();i_l++)
+    {
+        mess_info("modat","@@%s",mod->owner().modAt(list[i_l]).at().modInfo("SubType").c_str());
+        if(mod->owner().modAt(list[i_l]).at().modInfo("SubType") == "QT" &&
+                mod->owner().modAt(list[i_l]).at().modFuncPresent("QMainWindow *openWindow();"))
         {
-            QIcon icon;
-            if( mod->owner().modAt(list[i_l]).at().modFuncPresent("QIcon icon();") )
-            {
-                QIcon (Module::*iconGet)();
-                mod->owner().modAt(list[i_l]).at().modFunc("QIcon icon();",(void (Module::**)()) &iconGet);
-                icon = ((&mod->owner().modAt(list[i_l]).at())->*iconGet)( );
-            }
-            else icon = QIcon(":/images/oscada_qt.png");
-
-            AutoHD<Module> qt_mod = mod->owner().modAt(list[i_l]);
-            QPushButton *butt = new QPushButton(icon,qt_mod.at().modName().c_str(),new_wnd->centralWidget());
-            butt->setObjectName(list[i_l].c_str());
-            //QObject::connect(butt, SIGNAL(clicked(bool)), this, SLOT(callQTModule()));
-            new_wnd_lay->addWidget( butt, 0, 0 );
+            mess_info("for","$$%d",i_l);
+                break; /* first match*/
         }
+        mess_info("for","fjslksfj");
+    }
 
-    new_wnd_lay->addItem( new QSpacerItem( 20, 10, QSizePolicy::Minimum, QSizePolicy::Expanding ) );
+    if(i_l >= list.size())
+        return ;
 
-    QFrame *gFrame = new QFrame( new_wnd->centralWidget() );
-    gFrame->setFrameShape(QFrame::HLine);
-    gFrame->setFrameShadow(QFrame::Raised);
-    new_wnd_lay->addWidget(gFrame,0,0);
+    AutoHD<Module> qt_mod = mod->owner().modAt(list[i_l]);
+    QMainWindow *(Module::*openWindow)();
+    mess_info("for","fjslksfj11");
+    qt_mod.at().modFunc("QMainWindow *openWindow();",(void (Module::**)()) &openWindow);
+    QMainWindow *new_wnd = ((&qt_mod.at())->*openWindow)( );
+    mess_info("for","fjslksfj22");
+    if(!new_wnd)
+        return ;
 
-    QPushButton *butt = new QPushButton(QIcon(":/images/exit.png"),"Exit from system", new_wnd->centralWidget());
-    butt->setObjectName("*exit*");
-    //QObject::connect(butt, SIGNAL(clicked(bool)), this, SLOT(callQTModule()));
-    new_wnd_lay->addWidget( butt, 0, 0 );
-
+    /* start */
+     mess_info("show","show over");
     new_wnd->show();
+    mess_info("show","show over");
 }

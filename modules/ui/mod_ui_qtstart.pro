@@ -29,9 +29,11 @@ INCLUDEPATH += $$PWD/../../src/core \
             $$PWD/../../src/xml
 
 HEADERS += \
-    QTStarter/ui_start.h
+    QTStarter/ui_start.h \
+
 
 SOURCES += \
-    QTStarter/ui_start.cpp
+    QTStarter/ui_start.cpp \
+
 
 

@@ -209,7 +209,10 @@ void SYS::taskCreate(const string &path,int priority,void *(start_routine)(void 
         pthread_attr_getdetachstate(pthr_attr,&detachStat);
 
         if(detachStat == PTHREAD_CREATE_DETACHED)
+        {
             htsk.flgs |= STask::Detached; /*判断是否线程分离*/
+            mess_info("task","thread is detach");
+        }
 
         int rez = pthread_create(&procPthr, pthr_attr, taskWrap, &htsk);
 

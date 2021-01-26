@@ -51,6 +51,14 @@ HEADERS += \
     $$PWD/xml/priv/xmltok.h \
     $$PWD/xml/priv/xmltok_impl.h \
     $$PWD/xml/xml.h \
+    subsys/subarchive.h \
+    mess/priv/logobject.h \
+    mess/priv/logobjectptr.h \
+    mess/priv/filter.h \
+    mess/priv/level.h \
+    mess/priv/loggingevent.h \
+    mess/priv/appender.h \
+    mess/priv/layout.h
 
 
 SOURCES += \
@@ -70,4 +78,7 @@ SOURCES += \
     $$PWD/xml/priv/xmlparse.c \
     $$PWD/xml/priv/xmlrole.c \
     $$PWD/xml/priv/xmltok.c \
+    subsys/subarchive.cpp \
+    mess/priv/filter.cpp \
+    mess/priv/layout.cpp
 

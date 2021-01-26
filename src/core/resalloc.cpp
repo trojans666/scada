@@ -215,3 +215,32 @@ int ResCond::timeWait(ResMtx &mtx, unsigned int msec)
     tv.tv_nsec = (msec % 1000) * 1000;
     return pthread_cond_timedwait(&mCond,&mtx.mtx(),&tv);
 }
+
+/********** atomic **********/
+AtomicInt::AtomicInt(int ival)
+{
+    pthread_spin_init(&spin,PTHREAD_PROCESS_PRIVATE);
+    val = ival;
+}
+
+AtomicInt::~AtomicInt()
+{
+    pthread_spin_destroy(&spin);
+    val = 0;
+}
+
+bool AtomicInt::ref()
+{
+    pthread_spin_lock(&spin);
+    val++;
+    pthread_spin_unlock(&spin);
+    return true;
+}
+
+bool AtomicInt::deref()
+{
+    pthread_spin_lock(&spin);
+    val--;
+    pthread_spin_unlock(&spin);
+    return true;
+}

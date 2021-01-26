@@ -172,6 +172,19 @@ private:
     pthread_condattr_t mCondAttr;
 };
 
+/********* atomic **************/
+class AtomicInt
+{
+public:
+    AtomicInt(int val = 0);
+    ~AtomicInt();
+    bool ref();
+    bool deref();
+private:
+    pthread_spinlock_t spin;
+    volatile  int val;
+}
+
 }
 
 #endif

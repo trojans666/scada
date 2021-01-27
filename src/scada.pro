@@ -77,7 +77,8 @@ HEADERS += \
     $$PWD/mess/priv/rollingpolicy_type_sizewin.h \
     $$PWD/mess/priv/sprintf.h \
     $$PWD/mess/priv/stack.h \
-    $$PWD/mess/mess.h
+    $$PWD/mess/mess.h \
+    subsys/subtransport.h
 
 
 
@@ -121,7 +122,8 @@ SOURCES += \
     $$PWD/mess/priv/rollingpolicy_type_sizewin.c \
     $$PWD/mess/priv/sprintf.c \
     $$PWD/mess/priv/stack.c \
-    $$PWD/mess/mess.cpp
+    $$PWD/mess/mess.cpp \
+    subsys/subtransport.cpp
 
 DISTFILES +=
 

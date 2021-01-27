@@ -78,7 +78,8 @@ HEADERS += \
     $$PWD/mess/priv/sprintf.h \
     $$PWD/mess/priv/stack.h \
     $$PWD/mess/mess.h \
-    subsys/subtransport.h
+    subsys/subtransport.h \
+    subsys/subprotocol.h
 
 
 

@@ -11,6 +11,8 @@ using std::string;
 using std::vector;
 using std::pair;
 
+namespace SCADA
+{
 
 //*************************************************
 //* XMLNode                                       *
@@ -97,5 +99,6 @@ class XMLNode
 	vector<XMLNode*> node_stack;
 };
 
+}
 
 #endif // __XML_H

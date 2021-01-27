@@ -18,7 +18,7 @@ unix {
 
 
 
-OBJECTS_DIR = $$PWD/../pro/obj
+OBJECTS_DIR = $$PWD/../pro/src/obj
 
 INCLUDEPATH += $$PWD/core \
             $$PWD/event \
@@ -51,14 +51,34 @@ HEADERS += \
     $$PWD/xml/priv/xmltok.h \
     $$PWD/xml/priv/xmltok_impl.h \
     $$PWD/xml/xml.h \
-    subsys/subarchive.h \
-    mess/priv/logobject.h \
-    mess/priv/logobjectptr.h \
-    mess/priv/filter.h \
-    mess/priv/level.h \
-    mess/priv/loggingevent.h \
-    mess/priv/appender.h \
-    mess/priv/layout.h
+    $$PWD/mess/priv/appender.h \
+    $$PWD/mess/priv/appender_type_mmap.h \
+    $$PWD/mess/priv/appender_type_rollingfile.h \
+    $$PWD/mess/priv/appender_type_stream.h \
+    $$PWD/mess/priv/appender_type_stream2.h \
+    $$PWD/mess/priv/appender_type_syslog.h \
+    $$PWD/mess/priv/buffer.h \
+    $$PWD/mess/priv/category.h \
+    $$PWD/mess/priv/error.h \
+    $$PWD/mess/priv/factory.h \
+    $$PWD/mess/priv/hash.h \
+    $$PWD/mess/priv/init.h \
+    $$PWD/mess/priv/layout.h \
+    $$PWD/mess/priv/layout_type_basic.h \
+    $$PWD/mess/priv/layout_type_basic_r.h \
+    $$PWD/mess/priv/layout_type_dated.h \
+    $$PWD/mess/priv/layout_type_dated_r.h \
+    $$PWD/mess/priv/list.h \
+    $$PWD/mess/priv/location_info.h \
+    $$PWD/mess/priv/logging_event.h \
+    $$PWD/mess/priv/priority.h \
+    $$PWD/mess/priv/rc.h \
+    $$PWD/mess/priv/rollingpolicy.h \
+    $$PWD/mess/priv/rollingpolicy_type_sizewin.h \
+    $$PWD/mess/priv/sprintf.h \
+    $$PWD/mess/priv/stack.h \
+    $$PWD/mess/mess.h
+
 
 
 SOURCES += \
@@ -78,7 +98,31 @@ SOURCES += \
     $$PWD/xml/priv/xmlparse.c \
     $$PWD/xml/priv/xmlrole.c \
     $$PWD/xml/priv/xmltok.c \
-    subsys/subarchive.cpp \
-    mess/priv/filter.cpp \
-    mess/priv/layout.cpp
+    $$PWD/mess/priv/appender.c \
+    $$PWD/mess/priv/appender_type_mmap.c \
+    $$PWD/mess/priv/appender_type_rollingfile.c \
+    $$PWD/mess/priv/appender_type_stream.c \
+    $$PWD/mess/priv/appender_type_stream2.c \
+    $$PWD/mess/priv/appender_type_syslog.c \
+    $$PWD/mess/priv/category.c \
+    $$PWD/mess/priv/error.c \
+    $$PWD/mess/priv/factory.c \
+    $$PWD/mess/priv/hash.c \
+    $$PWD/mess/priv/init.c \
+    $$PWD/mess/priv/layout.c \
+    $$PWD/mess/priv/layout_type_basic.c \
+    $$PWD/mess/priv/layout_type_basic_r.c \
+    $$PWD/mess/priv/layout_type_dated.c \
+    $$PWD/mess/priv/layout_type_dated_r.c \
+    $$PWD/mess/priv/list.c \
+    $$PWD/mess/priv/logging_event.c \
+    $$PWD/mess/priv/priority.c \
+    $$PWD/mess/priv/rollingpolicy.c \
+    $$PWD/mess/priv/rollingpolicy_type_sizewin.c \
+    $$PWD/mess/priv/sprintf.c \
+    $$PWD/mess/priv/stack.c \
+    $$PWD/mess/mess.cpp
+
+DISTFILES +=
+
 

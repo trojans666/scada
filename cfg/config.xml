@@ -17,8 +17,12 @@
         </node>
 
         <node id="sub_Protocol">
-
+			
         </node>
+		
+		<node id="mess_Archive">
+			<appender
+		</node>
 
         <node id="SCADA">
             <!-- 监控的电池簇 1使能 0禁止 -->

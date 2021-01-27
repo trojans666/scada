@@ -133,7 +133,7 @@ CtrlNode * CtrlNode::nodePrev(bool noex)
 }
 
 
-void CtrlNode::load(bool force) /*如果节点被修改 加载该节点 */
+void CtrlNode::load(bool force) /* 如果节点被修改 加载该节点 */
 {
     load_(); /* 加载 子类的 */
 }

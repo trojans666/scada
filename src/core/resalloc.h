@@ -183,7 +183,7 @@ public:
 private:
     pthread_spinlock_t spin;
     volatile  int val;
-}
+};
 
 }
 

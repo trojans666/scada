@@ -10,7 +10,7 @@ QT       -= core gui
 TARGET = main
 TEMPLATE = app
 
-OBJECTS_DIR = $$PWD/../pro/obj
+OBJECTS_DIR = $$PWD/../pro/main
 
 DESTDIR = $$PWD/../output
 

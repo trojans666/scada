@@ -18,7 +18,7 @@ unix {
 
 
 
-OBJECTS_DIR = $$PWD/../pro/src/obj
+OBJECTS_DIR = $$PWD/../pro/scada
 
 INCLUDEPATH += $$PWD/core \
             $$PWD/event \
@@ -78,8 +78,8 @@ HEADERS += \
     $$PWD/mess/priv/sprintf.h \
     $$PWD/mess/priv/stack.h \
     $$PWD/mess/mess.h \
-    subsys/subtransport.h \
-    subsys/subprotocol.h
+    $$PWD/subsys/subtransport.h \
+    $$PWD/subsys/subprotocol.h
 
 
 
@@ -124,8 +124,8 @@ SOURCES += \
     $$PWD/mess/priv/sprintf.c \
     $$PWD/mess/priv/stack.c \
     $$PWD/mess/mess.cpp \
-    subsys/subtransport.cpp
+    $$PWD/subsys/subtransport.cpp
 
-DISTFILES +=
+
 
 
